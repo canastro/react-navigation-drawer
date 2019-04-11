@@ -59,6 +59,7 @@
     "react-lifecycles-compat": "^3.0.4",
     "react-native": "~0.57.1",
     "react-native-gesture-handler": "^1.1.0",
+    "react-native-reanimated": "^1.0.0",
     "react-native-screens": "^1.0.0-alpha.22",
     "react-test-renderer": "16.8.6",
     "typescript": "^3.4.3"
@@ -69,6 +70,7 @@
     "react": "*",
     "react-native": "*",
     "react-native-gesture-handler": "^1.0.12",
+    "react-native-reanimated": "^1.0.0",
     "react-native-screens": "^1.0.0 || ^1.0.0-alpha"
   },
   "jest": {

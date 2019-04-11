@@ -105,15 +105,17 @@ export default class DrawerView extends React.PureComponent<Props, State> {
       .sort((a, b) => a > b);
 
     changedIds.forEach(id => {
-      if (id === openId) {
-        this._drawer.openDrawer();
-      } else if (id === closeId) {
-        this._drawer.closeDrawer();
-      } else if (id === toggleId) {
-        if (isDrawerOpen) {
-          this._drawer.closeDrawer();
-        } else {
+      if (this._drawer) {
+        if (id === openId) {
           this._drawer.openDrawer();
+        } else if (id === closeId) {
+          this._drawer.closeDrawer();
+        } else if (id === toggleId) {
+          if (isDrawerOpen) {
+            this._drawer.closeDrawer();
+          } else {
+            this._drawer.openDrawer();
+          }
         }
       }
     });
@@ -123,7 +125,7 @@ export default class DrawerView extends React.PureComponent<Props, State> {
     Dimensions.removeEventListener('change', this._updateWidth);
   }
 
-  _drawer: typeof DrawerLayout;
+  _drawer: DrawerLayout | null = null;
 
   drawerGestureRef = React.createRef();
 
@@ -257,8 +259,9 @@ export default class DrawerView extends React.PureComponent<Props, State> {
     const { drawerLockMode } = this.props.descriptors[activeKey].options;
 
     return (
+      // @ts-ignore
       <DrawerLayout
-        ref={(c: any) => {
+        ref={(c: DrawerLayout | null) => {
           this._drawer = c;
         }}
         onGestureRef={this._setDrawerGestureRef}
@@ -282,8 +285,8 @@ export default class DrawerView extends React.PureComponent<Props, State> {
         renderNavigationView={this._renderNavigationView}
         drawerPosition={
           this.props.navigationConfig.drawerPosition === 'right'
-            ? DrawerLayout.positions.Right
-            : DrawerLayout.positions.Left
+            ? (DrawerLayout as any).positions.Right
+            : (DrawerLayout as any).positions.Left
         }
         /* props specific to react-native-gesture-handler/DrawerLayout */
         drawerType={this.props.navigationConfig.drawerType}
